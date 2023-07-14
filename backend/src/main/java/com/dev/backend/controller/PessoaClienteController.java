@@ -13,7 +13,7 @@ import com.dev.backend.service.PessoaClienteService;
 
 
 @RestController
-@RequestMapping("/api/clinte")
+@RequestMapping("/api/cliente")
 public class PessoaClienteController {
 
     @Autowired

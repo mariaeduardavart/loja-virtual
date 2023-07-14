@@ -18,12 +18,18 @@ public class PessoaClienteService {
     @Autowired
     private PermissaoPessoaService permissaoPessoaService;
 
+    @Autowired
+    private EmailService emailService;
+
     public Pessoa registrar(PessoaClienteRequestDTO pessoaClienteRequestDTO){
         Pessoa pessoa = new PessoaClienteRequestDTO().converter(pessoaClienteRequestDTO); //Recebe um DTO e converte para pessoa
         
         pessoa.setDataCriacao(new Date());
         Pessoa pessoaNova = pessoaRepository.saveAndFlush(pessoa);
         permissaoPessoaService.vincularPessoaPermissaoCliente(pessoaNova);
+        
+        emailService.enviarEmailTexto(pessoaNova.getEmail(), "Cadastro na Loja TechTrove", "O registro na loja foi realizado com sucesso. Em breve você receberá a senha de acesso por e-mail!!");
+        
         return pessoaNova;
     }
 
